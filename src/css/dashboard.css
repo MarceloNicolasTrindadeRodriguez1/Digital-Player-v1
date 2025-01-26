@@ -1,0 +1,54 @@
+.dashboard-section {
+    min-height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.dashboard-section:hover {
+    transform: scale(1.05);
+    background-color: #0056b3;
+}
+
+.dashboard-section a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.dashboard-button {
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #007bff;
+    color: white;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.dashboard-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.dashboard-button i {
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.expiration-date {
+    margin-top: 50px;
+    font-size: 16px;
+    text-align: center;
+    color: #666;
+}

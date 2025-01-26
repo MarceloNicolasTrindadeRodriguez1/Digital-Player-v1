@@ -1,0 +1,33 @@
+version: '3.5'
+
+services: 
+  app:
+    build:
+       context: .
+       dockerfile: dockerfile
+    container_name: php_app
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+    environment:
+      - APACHE_RUN_USER=www-data
+      - APACHE_RUN_GROUP=www-data
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: iptv
+      MYSQL_USER: iptv_user
+      MYSQL_PASSWORD: iptv_password
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+      
