@@ -1,10 +1,10 @@
-version: '3.5'
+version: '3.8'
 
-services: 
+services:
   app:
     build:
-       context: .
-       dockerfile: dockerfile
+      context: .
+      dockerfile: Dockerfile
     container_name: php_app
     ports:
       - "8080:80"
@@ -28,6 +28,13 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
+  composer:
+    image: composer:2
+    container_name: composer
+    volumes:
+      - ./src:/app
+    working_dir: /app
+    entrypoint: ["composer"]
+
 volumes:
   db_data:
-      

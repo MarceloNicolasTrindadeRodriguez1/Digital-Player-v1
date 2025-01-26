@@ -1,0 +1,12 @@
+.channel-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 100px;
+}
+
+.channel-logo {
+    width: 100%;
+    height: auto;
+}

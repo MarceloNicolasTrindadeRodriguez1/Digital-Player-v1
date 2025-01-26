@@ -17,7 +17,6 @@ $date->setTimezone(new DateTimeZone('Europe/Paris')); // Set Paris timezone
 
 $expiration_date = $date->format('Y-m-d');
 
-
 ?>
 
 <!DOCTYPE html>
