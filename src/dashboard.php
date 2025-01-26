@@ -11,7 +11,11 @@ if (!isset($_SESSION['user'])) {
 $user = $_SESSION['user'];
 
 // Display expiration date
-$expiration_date = $user['exp_date']
+$timestamp = $user['exp_date'];
+$date = new DateTime('@' . $timestamp); // '@' specifies timestamp
+$date->setTimezone(new DateTimeZone('Europe/Paris')); // Set Paris timezone
+
+$expiration_date = $date->format('Y-m-d');
 
 
 ?>
