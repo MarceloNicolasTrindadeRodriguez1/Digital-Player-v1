@@ -13,18 +13,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // XtreamUI API end point 
         $api_url = "$server/player_api.php?username=$username&password=$password";
 
-        // Make the API request
-        $response = file_get_contents($api_url);
-        $data = json_decode($response, true);
+        //Initialise curl
+        $ch = curl_init();
 
-        if ($data['user_info']['auth'] === 1) {
+        //set cURL options
+        curl_setopt($ch, CURLOPT_URL, $api_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        // Disable SSL verification (ignore SSL policy)
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); // Don't check the SSL certificate's host
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Don't check the SSL certificate
+
+        // Execute the request
+        $response = curl_exec($ch);
+
+        // Check for errors
+        if (curl_errno($ch)) {
+        echo "cURL error: " . curl_error($ch);
+        } else {
+        // Process the response
+        //echo "Response: " . $response;
+        }
+        $decode_response = json_decode($response, true);
+
+
+        // Close the cURL session
+        curl_close($ch);
+
+        
+        if ($decode_response['user_info']['auth'] === 1) {
             // Authentication successful
             $_SESSION['user'] = [
                 'server' => $server,
                 'username' => $username,
                 'password' => $password,
-                'user_info' => $data['user_info'],
-                'exp_date' => $data['user_info']['exp_date'],
+                'user_info' => $decode_response['user_info'],
+                'exp_date' => $decode_response['user_info']['exp_date'],
             ];
             header("Location: dashboard.php");
             exit();
@@ -32,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Authentication failed
             $error = "Login Failed: Invalid credentials";
         }
-    } elseif ($loginOption === 'link') {
+    } /*elseif ($loginOption === 'link') {
         // Get user's link
         $link = $_POST['link'];
 
@@ -52,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         // Invalid login option
         $error = "Login Failed: Invalid login option";
-    }
+    }*/
 }
 ?>
 
