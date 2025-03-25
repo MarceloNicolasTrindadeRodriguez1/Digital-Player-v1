@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+header("Access-Control-Allow-Origin: *");
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $loginOption = $_POST['loginOption'];
 
@@ -25,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Don't check the SSL certificate
 
         // Execute the request
+        //var_dump(function_exists('curl_exec'));
         $response = curl_exec($ch);
 
         // Check for errors
@@ -50,13 +54,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'user_info' => $decode_response['user_info'],
                 'exp_date' => $decode_response['user_info']['exp_date'],
             ];
+            echo "Redirecting to dashboard...";
             header("Location: dashboard.php");
             exit();
         } else {
             // Authentication failed
             $error = "Login Failed: Invalid credentials";
+            error_log("API Response: " . $response);
         }
-    } /*elseif ($loginOption === 'link') {
+    } 
+    
+    
+    
+    
+    
+    /*elseif ($loginOption === 'link') {
         // Get user's link
         $link = $_POST['link'];
 
